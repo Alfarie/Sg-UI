@@ -36,7 +36,7 @@ export default {
   },
   par: {
     id: 'par-pie',
-    max: 200,
+    max: 3000,
     min: 0,
     postFix: 'W/sqm',
     data: {

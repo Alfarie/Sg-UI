@@ -22,7 +22,7 @@
         <div class="widget-body">
           <form class="smart-form">
             <header>
-              GPIO
+              CHANNEL OUTPUT
             </header>
             <fieldset>
               <div class="table-responsive">

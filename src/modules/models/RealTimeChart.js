@@ -31,7 +31,7 @@ export const realTimeChartObj = {
         title: 'Real-time graph: PAR',
         label: 'Particle Active Radiation',
         data: [],
-        max: 300,
+        max: 5000,
         min: 0
     },
     co2:{
