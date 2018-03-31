@@ -19,16 +19,20 @@
       </div>
       <div class="widget-body">
         <form class="smart-form">
-        
           <label class="select" style="margin-bottom: 20px;">
-            <select class="input-lg">
-              <option value="0">Select Mode</option>
-              <option value="soil">Soil</option>
-              <option value="vpd">PAR</option>
-              <option value="temperature">Soil & par</option>
+            <select class="input-lg"  v-model="control[ch-1].irrigation.mode">
+              <option value="0">Soil</option>
+              <option value="1">PAR</option>
+              <!-- <option value="2">Soil & par</option> -->
             </select>
-            <i></i>
           </label>
+          
+          <section>
+              <label class="label">Working time</label>
+              <label class="input">
+                <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.working">
+              </label>
+            </section>
         <!-- <h1>{{control[ch-1].irrigation}}</h1> -->
           <header>Soil</header>
           <app-range :sliderobj="soilobj" id="soil" v-model="soil" style="margin-bottom: 20px;"></app-range>

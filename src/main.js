@@ -5,7 +5,8 @@ import MultiLanguage from 'vue-multilanguage'
 import socketio from 'socket.io-client';
 import VueSocketio from 'vue-socket.io';
 import {store} from './modules/store/store.js'
-import {routes} from './routes.js'
+import {router} from './modules/router/router.js';
+
 import './filters.js';
 
 Vue.use(VueRouter);
@@ -16,10 +17,7 @@ var hostname = window.location.hostname;
 Vue.use(VueSocketio, socketio('http://'+ hostname +':3000'), store);
 Vue.http.options.root = 'http://'+ hostname +':3000';
 
-const router = new VueRouter({
-  mode: 'history',
-  routes,
-});
+
 
 
 import App from './App.vue'

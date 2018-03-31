@@ -66,20 +66,18 @@
   export default {
     data(){
       return {
-        sensor: 'soil',
         date: moment().format('YYYY-MM-DD')
       }
     },
     methods:{
       selectSensor: function(data){
-        let sensor = data.target.value
-        this.$emit('select', sensor);
-        this.$store.commit('updateSelectedSensor', sensor);
+        console.log(data.target.value);
+        this.$store.commit('updateSelectedSensor', data.target.value);
       },
       fetchData: function(){
         this.$store.commit('updateLoggerFetchingStatus', 'fetching');
         this.$store.commit('updateAllDayLogger', []);
-        this.$emit('date', this.date);
+        this.$store.commit('updateCurrentDate', this.date);
         setTimeout( ()=>{
           this.$store.dispatch('updateAllDayLogger', 'DATE'+this.date);
         },2000)

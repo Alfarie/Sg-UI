@@ -43,13 +43,13 @@
                 <span class="menu-item-parent">Summary</span>
               </a>
             </router-link>
-            <!-- <router-link to="/grobot-summary/sensors" tag="li" active-class="active">
+            <router-link to="/grobot-summary/status" tag="li" active-class="active">
               <a title="Dashboard" >
                 <i class="fa fa-lg fa-fw fa-gear"></i>
-                <span class="menu-item-parent">Sensors</span>
+                <span class="menu-item-parent">MCU Status</span>
               </a>
             </router-link>
-            <router-link tag="li" to="/grobot-summary/realtime-graph" active-class="active">
+            <!-- <router-link tag="li" to="/grobot-summary/realtime-graph" active-class="active">
               <a title="Dashboard">
                 <i class="fa fa-lg fa-fw fa-gear"></i>
                 <span class="menu-item-parent">Real-time graph</span>

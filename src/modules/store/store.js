@@ -6,6 +6,7 @@ import datetime from './modules/datetime'
 import socket from './modules/socket'
 import control from './modules/control'
 import logger from './modules/logger'
+import status from './modules/mcu-status'
 
 Vue.use(Vuex);
 export const store = new Vuex.Store({
@@ -14,6 +15,7 @@ export const store = new Vuex.Store({
         datetime,
         socket,
         control,
-        logger
+        logger,
+        status
     }
 })

@@ -75,14 +75,12 @@
           this.createChart();
           this.isCreated = true;
         } else {
-          console.log('update');
           window.myLine.update();
         }
       }
     },
     mounted() {
       this.updateChart();
-      console.log('mounted');
     }
   };
 

@@ -4,7 +4,8 @@ const state = {
     allDayLogger: [],
     sparklineLogger: [],
     selectedSensor: 'soil',
-    loggerFetchingStatus: 'no-record' // no-record, fetching, fetched
+    loggerFetchingStatus: 'no-record', // no-record, fetching, fetched
+    currentDate: ''
 }
 const getters = {
     shortLogger: function(state){
@@ -21,6 +22,9 @@ const getters = {
     },
     loggerFetchingStatus: function(state){
         return state.loggerFetchingStatus;
+    },
+    currentDate: function(state){
+        return state.currentDate;
     }
 }
 
@@ -39,6 +43,9 @@ const mutations = {
     },
     updateSelectedSensor: function(state, payload){
         state.selectedSensor = payload;
+    },
+    updateCurrentDate: function(state, payload){
+        state.currentDate = payload;
     }
 }
 

@@ -27,16 +27,13 @@
             </div>
           </fieldset>
           <footer  v-if="allDayLogger.length != 0">
-            
-            
-            {{link}} {{ value}}
+            {{link}} {{value}}
             <form :action="link" method="get" target="_blank">
               <input type="hidden" name="date" :value="value" />
               <button type="submit" class="btn btn-primary">
                 <i class="fa fa-save "></i> Export to .xls
               </button>
             </form>
-
           </footer>
         </form>
       </div>
@@ -56,11 +53,9 @@ var port = window.location.port;
 var serverLink = 'http://'+ hostname +':3000';
 
 export default {
-  props: ["date"],
   data(){
     return {
-      link: serverLink + "/logger/finds/date/csv",
-      value: 'DATE' + this.date
+      link: serverLink + "/logger/finds/date/csv"
       // /logger/finds/date/csv?date=DATE2018-03-24
     }
   },
@@ -68,7 +63,10 @@ export default {
     Graph
   },
   computed: {
-    ...mapGetters(["allDayLogger", "loggerFetchingStatus", "selectedSensor"])
+    ...mapGetters(["allDayLogger", "loggerFetchingStatus", "selectedSensor", "currentDate"]),
+    value: function(){
+      return 'DATE' + this.currentDate;
+    }
   }
 };
 </script>
