@@ -66,7 +66,7 @@ export default {
   },
   watch: {
     wifiMode: function(data){
-      this.$router.push({name: this.routeList[data]})
+      this.$router.replace({name: this.routeList[data]})
     }
   }
 };

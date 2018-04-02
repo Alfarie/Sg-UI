@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import control from '../../components/control/components/models/control.js';
+
+import axios from '../../axios/axios';
 const state = {
     control: control.control
 }
@@ -26,15 +28,18 @@ const mutations = {
 
 const actions = {
     updateControl: ( {commit} , payload)=>{
-        Vue.http.get('control/').then(
-            (res)=>{
-                console.log(res.body);
-               commit('updateControl', res.body);
-            }
-        )
+        axios.get('control/')
+        .then( res=> {
+            commit('updateControl', res.data);
+        })
+        .catch(err=> console.log(err))
     },
     uploadControl: ({commit,state}, payload)=>{
-        Vue.http.post('control/', {control: state.control[payload-1]});
+        axios.post('control/',{
+            control: state.control[payload-1]
+        })
+        .then(res=> console.log(res))
+        .catch(err=>console.log(err))
     }
 }
 

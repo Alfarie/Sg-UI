@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import axios from '../../axios/axios';
 const state = {
     shortLogger: [],
     allDayLogger: [],
@@ -52,42 +53,35 @@ const mutations = {
 
 const actions = {
     updateShortLogger: function({commit}, payload){
-        Vue.http.get('logger/finds/short').then(
+        axios.get('logger/finds/short')
+        .then(
             (res)=>{
-                commit('updateShortLogger',res.body);
+                commit('updateShortLogger', res.data);
             }
         )
+        .catch(err=>{console.log(err);})
     },
     updateAllDayLogger: function({commit}, payload){
-        Vue.http.get('logger/finds/date?date=' + payload).then(
-            (res)=>{
-                let result = res.body;
-                if(result.status == 'Error'){
-                    commit('updateAllDayLogger', []);
-                }
-                else{
-                    commit('updateAllDayLogger', res.body);
-                }
-                commit('updateLoggerFetchingStatus', 'fetched')
-               
+        axios.get('logger/finds/date', {
+            params: {
+                date: payload
             }
-        )
+        })
+        .then( res=>{
+            let result = res.data;
+            if(result.status == 'Error'){
+                commit('updateAllDayLogger', []);
+            }
+            else{
+                commit('updateAllDayLogger', res.data);
+            }
+            commit('updateLoggerFetchingStatus', 'fetched')
+        })
+
     },
     updateSparklineLogger: function({commit}, payload){
-        Vue.http.get('logger/finds/sparks').then(
-            (res)=>{
-                let result = res.body;
-                console.log(result);
-                commit('updateSparklineLogger', result);
-            }
-        )
-    },
-    exportCsv: function({commit}, payload){
-        Vue.http.get('logger/finds/date/csv?date=' + payload).then(
-            (res)=>{
-                let result = res.body;
-            }
-        )
+        axios.get('logger/finds/sparks')
+        .then(res=>commit('updateSparklineLogger', res.data))
     }
 }
 

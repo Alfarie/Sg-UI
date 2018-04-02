@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import axios from '../../axios/axios'
 const state = {
     date: '2017-1-1',
     time: '00:00:00'
@@ -22,7 +22,7 @@ const mutations = {
 
 const actions = {
     updateDateTime(context, payload){
-        Vue.http.post('setting/datetime/', payload)
+        axios.post('setting/datetime', payload)
     }
 }
 

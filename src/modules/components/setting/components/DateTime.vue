@@ -29,7 +29,7 @@
               <div class="input-group">
                 <!-- <input class="form-control" id="picktime" type="text" placeholder="Select time" :value="time"> -->
                 
-                <input type="time" name="" id="picktime" class="form-control" value="" required="required" title="">
+                <input type="time" name="" id="picktime" class="form-control" :value="time" required="required" title="">
                 
                 <span class="input-group-addon">
                   <i class="fa fa-clock-o"></i>
@@ -52,14 +52,9 @@
               </div>
             </div>
           </section>
-
-
           <footer>
             <button @click="submit" type="button" class="btn btn-primary">
               Submit
-            </button>
-            <button type="button" class="btn btn-default" onclick="window.history.back();">
-              Mobile time
             </button>
           </footer>
         </form>
@@ -70,12 +65,13 @@
 
 <script>
   var $ = (window.jquery = require("jquery"));
-  require("../../../../assets/js/plugin/clockpicker/clockpicker.min.js"); 
+  require("../../../../assets/js/plugin/clockpicker/clockpicker.min.js");
+  import moment from 'moment';
   export default {
     data(){
       return {
-        date: '2017-01-01',
-        time: '00:00'
+        date: moment().format("YYYY-MM-DD"),
+        time:  moment().format("hh:mm")
       }
     },
     methods:{

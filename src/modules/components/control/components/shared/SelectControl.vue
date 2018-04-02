@@ -65,7 +65,7 @@ export default {
   watch:{
     select:function(data){
    
-     this.$router.push({
+     this.$router.replace({
        name: controlName[data]
      })
     },

@@ -80,10 +80,10 @@
             </b>
           </a>
           <ul>
-            <router-link to="/grobot-setting/sensors" tag="li" active-class="active">
+            <!-- <router-link to="/grobot-setting/sensors" tag="li" active-class="active">
               <a >
                 <i class="fa fa-lg fa-fw fa-gear"></i> Sensors</a>
-            </router-link>
+            </router-link> -->
             <router-link to="/grobot-setting/activity" tag="li" active-class="active">
               <a >
                 <i class="fa fa-lg fa-fw fa-gear"></i> Activity</a>

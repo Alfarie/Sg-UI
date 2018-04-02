@@ -7,6 +7,8 @@ import socket from './modules/socket'
 import control from './modules/control'
 import logger from './modules/logger'
 import status from './modules/mcu-status'
+import network from './modules/network'
+import auth from './modules/auth'
 
 Vue.use(Vuex);
 export const store = new Vuex.Store({
@@ -16,6 +18,8 @@ export const store = new Vuex.Store({
         socket,
         control,
         logger,
-        status
+        status,
+        network,
+        auth
     }
 })

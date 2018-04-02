@@ -65,7 +65,7 @@ export default {
     },
     select: function(data) {
       if (data != -1) {
-        this.$router.push({
+        this.$router.replace({
           name: this.getControlName[data-1],
           params: {
             ch: data
@@ -73,7 +73,7 @@ export default {
         });
       }
       else{
-        this.$router.push({
+        this.$router.replace({
           name: 'grobot-control',
         });
       }
