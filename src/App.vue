@@ -2,10 +2,13 @@
 
 
   <div>
-    <div v-if="auth">
-      <app-header></app-header>
-      <app-nav></app-nav>
-      <div id="main" role="main">
+    <div >
+      <!-- v-show because haeder and navigation must initialize at created lifecycle 
+          so we cannot use v-show instead of v-if
+       -->
+      <app-header v-show="auth"></app-header>
+      <app-nav v-show="auth"></app-nav>
+      <div id="main" role="main" v-if="auth">
         <app-ribbon></app-ribbon>
         <date-time></date-time>
         <router-view></router-view>

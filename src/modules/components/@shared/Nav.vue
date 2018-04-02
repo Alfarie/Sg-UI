@@ -29,7 +29,7 @@
       <ul>
 
         <li>
-          <a href="#">
+          <a>
             <i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i>
             <span class="menu-item-parent">Grobot Summary</span>
             <b class="collapse-sign">

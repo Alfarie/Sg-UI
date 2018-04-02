@@ -51,7 +51,6 @@ const actions = {
   }, authData) => {
     axios.post('/auth/signin', authData)
       .then(res => {
-        commit('authMessage', res.data.message);
         if (res.data.success) {
           commit('authUser', res.data);
           const now = new Date();
@@ -61,6 +60,9 @@ const actions = {
           localStorage.setItem('username', res.data.username);
           dispatch('setLogoutTime', res.data.expiresIn);
           router.replace({name: 'summary'})
+          commit('authMessage',null);
+        }else{
+          commit('authMessage', res.data.message);
         }
       })
       .catch(err => console.log(err))

@@ -47,6 +47,11 @@
 											<i></i>Stay signed in</label>
 									</section>
 								</fieldset>
+								<div v-if="authMessage">
+									<h4 class="alert alert-danger">{{authMessage}}</h4>
+								</div>
+									
+								
 								<footer>
 									<button type="button" class="btn btn-success" @click="login">
 										Sign in
