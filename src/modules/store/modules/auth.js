@@ -38,27 +38,25 @@ const actions = {
       username: username
     })
   },
-  setLogoutTime({
-    dispatch
-  }, expirationTime) {
+  setLogoutTime({dispatch}, expirationTime) {
     setTimeout(() => {
       dispatch('logout')
     }, expirationTime * 1000)
   },
-  login: ({
-    commit,
-    dispatch
-  }, authData) => {
+  login: ({commit,dispatch}, authData) => {
     axios.post('/auth/signin', authData)
       .then(res => {
         if (res.data.success) {
           commit('authUser', res.data);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000);
-          localStorage.setItem('token', res.data.tokenId);
-          localStorage.setItem('expiresDate', expirationDate)
-          localStorage.setItem('username', res.data.username);
-          dispatch('setLogoutTime', res.data.expiresIn);
+          console.log(authData);
+          if(authData.stayIn){
+            localStorage.setItem('token', res.data.tokenId);
+            localStorage.setItem('expiresDate', expirationDate)
+            localStorage.setItem('username', res.data.username);
+            dispatch('setLogoutTime', res.data.expiresIn);
+          }
           router.replace({name: 'summary'})
           commit('authMessage',null);
         }else{
