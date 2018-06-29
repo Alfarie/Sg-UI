@@ -13,6 +13,7 @@ Vue.use(VueRouter);
 
 
 var hostname = window.location.hostname;
+// var hostname = '192.168.100.1'
 Vue.use(VueSocketio, socketio('http://'+ hostname +':3000'), store);
 
 

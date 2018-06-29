@@ -63,6 +63,12 @@
                     <sensor-micro-chart id="co2">
                       <span slot="sensor-name"> CO<sub>2</sub> </span>
                     </sensor-micro-chart>
+
+                    <sensor-micro-chart id="light">
+                      <span slot="sensor-name"> LED </span>
+                    </sensor-micro-chart>
+
+
                   </div>
 
                   

@@ -101,5 +101,22 @@ export default {
       onStart: $.noop,
       onStop: $.noop
     }
+  },
+  light: {
+    id: 'light-pie',
+    max: 20000,
+    min: 0,
+    postFix: ' lux',
+    data: {
+      barColor: '#7df442',
+      trackColor: '#f2f2f2',
+      scaleColor: '#dfe0e0',
+      lineCap: 'round',
+      lineWidth: 3,
+      size: 70,
+      animate: 1000,
+      onStart: $.noop,
+      onStop: $.noop
+    }
   }
 }

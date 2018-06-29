@@ -35,6 +35,7 @@
                         <option value="soil">Soil</option>
                         <option value="vpd">VPD</option>
                         <option value="par">PAR</option>
+                        <option value="light">LED (lux)</option>
                         <option value="paracc">PAR Accumulation</option>
                         <option value="temperature">Temperature</option>
                         <option value="humidity">Relative Humidity</option>
