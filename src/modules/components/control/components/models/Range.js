@@ -65,5 +65,31 @@ export default {
         step: 1,
         postfix: " ppm",
         grid: true
+    },
+    ec: {
+        name: 'ec',
+        hide_min_max: true,
+        min: 0,
+        max: 5,
+        from: 1,
+        to: 1.3,
+        type: 'single',
+        step: 1,
+        postfix: "",
+        grid: true,
+        step: 0.1
+    },
+    ph: {
+        name: 'ph',
+        hide_min_max: true,
+        min: 0,
+        max: 14,
+        from: 7,
+        to: 8,
+        type: 'single',
+        step: 1,
+        postfix: "",
+        grid: true,
+        step: 0.1
     }
 }

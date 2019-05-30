@@ -118,5 +118,56 @@ export default {
       onStart: $.noop,
       onStop: $.noop
     }
-  }
+  },
+  ec: {
+    id: 'ec-pie',
+    max: 3.0,
+    min: 0,
+    postFix: '',
+    data: {
+      barColor: '#7df442',
+      trackColor: '#f2f2f2',
+      scaleColor: '#dfe0e0',
+      lineCap: 'round',
+      lineWidth: 3,
+      size: 70,
+      animate: 1000,
+      onStart: $.noop,
+      onStop: $.noop
+    }
+  },
+  ph: {
+    id: 'ph-pie',
+    max: 14,
+    min: 0,
+    postFix: '',
+    data: {
+      barColor: '#7df442',
+      trackColor: '#f2f2f2',
+      scaleColor: '#dfe0e0',
+      lineCap: 'round',
+      lineWidth: 3,
+      size: 70,
+      animate: 1000,
+      onStart: $.noop,
+      onStop: $.noop
+    }
+  },
+  water: {
+    id: 'water-pie',
+    max: 50,
+    min: 0,
+    postFix: 'C',
+    data: {
+      barColor: '#7df442',
+      trackColor: '#f2f2f2',
+      scaleColor: '#dfe0e0',
+      lineCap: 'round',
+      lineWidth: 3,
+      size: 70,
+      animate: 1000,
+      onStart: $.noop,
+      onStop: $.noop
+    }
+  },
 }

@@ -1,7 +1,7 @@
 <template>
   <section id="widget-grid">
     <div class="row">
-      <article class="col-sm-12">
+      <article class="col-sm-12 col-lg-8 col-lg-offset-2">
         <!-- new widget -->
         <div class="jarviswidget" id="wid-id-0" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false"
           data-widget-colorbutton="false" data-widget-deletebutton="false">
@@ -10,7 +10,7 @@
             <span class="widget-icon">
               <i class="glyphicon glyphicon-stats txt-color-darken"></i>
             </span>
-            <h2>Sensors Live Feed</h2>
+            <h2>Live Sensors</h2>
 
             <ul class="nav nav-tabs pull-right in" id="myTab">
               <li class="active">
@@ -41,34 +41,28 @@
                   <div class="show-stat-microcharts">
                     
                     <sensor-micro-chart id="soil">
-                      <span slot="sensor-name"> Soil Moisture </span>
+                      <span slot="sensor-name"  v-lang.FullSoil></span>
                     </sensor-micro-chart>
-
-                    <sensor-micro-chart id="par">
-                      <span slot="sensor-name"> PAR </span>
-                    </sensor-micro-chart>
-
-                    <sensor-micro-chart id="vpd">
-                      <span slot="sensor-name"> VPD </span>
-                    </sensor-micro-chart>
-
+                    
                     <sensor-micro-chart id="temperature">
-                      <span slot="sensor-name"> Temperature </span>
+                      <span slot="sensor-name" v-lang.Temperature></span>
                     </sensor-micro-chart>
                     
                     <sensor-micro-chart id="humidity">
-                      <span slot="sensor-name"> RH </span>
+                      <span slot="sensor-name" v-lang.Humidity> Humidity </span>
+                    </sensor-micro-chart>
+
+                    <sensor-micro-chart id="vpd">
+                      <span slot="sensor-name" v-lang.VPD>  </span>
                     </sensor-micro-chart>
 
                     <sensor-micro-chart id="co2">
                       <span slot="sensor-name"> CO<sub>2</sub> </span>
                     </sensor-micro-chart>
 
-                    <sensor-micro-chart id="light">
-                      <span slot="sensor-name"> LED </span>
+                    <sensor-micro-chart id="par">
+                      <span slot="sensor-name" v-lang.Par>  </span>
                     </sensor-micro-chart>
-
-
                   </div>
 
                   
@@ -109,10 +103,13 @@
       SensorMicroChart
     },
     computed: {
-      ...mapGetters(["getSensors"])
+      ...mapGetters(["GET_SENSORS"])
     },
     mounted() {
       
+    },
+    created(){
+      // this.$store.dispatch('updateSensors');
     }
   };
 

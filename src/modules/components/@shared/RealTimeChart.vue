@@ -22,7 +22,7 @@
               backgroundColor: "#62f442",
               borderColor: "#62f442",
               borderWidth: 2,
-              radius: 2,
+              radius: 0,
               data: this.dataObj.data,
               fill: false
             }]
@@ -67,10 +67,12 @@
     methods: {
       createChart: function () {
         var ctx = document.getElementById(this.id).getContext("2d");
+        ctx.canvas.width = 300;
+        ctx.canvas.height = 140;
         window.myLine = new Chart(ctx, this.config);
       },
       updateChart: function () {
-        console.log(this.config.data.datasets[0]);
+        // console.log(this.config.data.datasets[0]);
         if (!this.isCreated) {
           this.createChart();
           this.isCreated = true;

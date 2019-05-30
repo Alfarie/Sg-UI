@@ -1,4 +1,6 @@
 import VueRouter from 'vue-router'
+import * as Cognito from '../lib/aws-cognito'
+import * as jwtAuth from '../axios/jwtAuth'
 
 import {
   routes
@@ -9,7 +11,15 @@ export const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  console.log('Before Each');
-  next();
-});
+router.beforeEach( async (to, from, next) => {
+  let login = jwtAuth.authUser();
+  console.log("to:" + to.fullPath + ", " + login );
+  if(login){
+    if(to.path == '/pages/login') next();
+    else next()
+  }
+  else{
+    if(to.path == '/pages/login') next();
+    else  next('/pages/login');
+  }
+})

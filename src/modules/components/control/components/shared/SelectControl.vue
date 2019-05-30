@@ -21,14 +21,14 @@
         <form class="smart-form">
           <fieldset>
             <div class="row">
-              <section class="col col-5">
+              <section class="col col-lg-6 col-xs-12">
                 <label class="toggle">
                   <input type="radio" name="radio-toggle" value="0" v-model="select">
                   <i data-swchon-text="ON" data-swchoff-text="OFF" ></i>Manual</label>
                 <label class="toggle">
                   <input type="radio" name="radio-toggle" value="1" v-model="select">
                   <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Timer</label>
-                <label class="toggle">
+                <!-- <label class="toggle">
                   <input type="radio" name="radio-toggle" value="2" v-model="select">
                   <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Set point</label>
                 <label class="toggle">
@@ -36,7 +36,23 @@
                   <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Set Bound</label>
                 <label class="toggle">
                   <input type="radio" name="radio-toggle" value="4" v-model="select">
-                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Irrigation</label>
+                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Setbound & Timing</label> -->
+               
+                <!-- <label class="toggle">
+                  <input type="radio" name="radio-toggle" value="9" v-model="select">
+                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>AI Irrigation</label> -->
+                <label class="toggle">
+                  <input type="radio" name="radio-toggle" value="6" v-model="select">
+                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Setpoint</label>
+                <label class="toggle">
+                  <input type="radio" name="radio-toggle" value="7" v-model="select">
+                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Setbound</label>
+                <label class="toggle">
+                  <input type="radio" name="radio-toggle" value="8" v-model="select">
+                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Setbound & Timing</label>
+                <label class="toggle">
+                  <input type="radio" name="radio-toggle" value="5" v-model="select">
+                  <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Advance Irrigation</label>
               </section>
             </div>
           </fieldset>
@@ -49,7 +65,7 @@
 <script>
 
 import {mapGetters} from 'vuex';
-var controlName = ['manual', 'timer', 'setpoint', 'setbound', 'irrigation']
+var controlName = ['manual', 'timer', 'setpoint', 'setbound', 'hybrid', 'irrigation', 'advancecondition', 'advancesetbound', 'advancetimingsetbound', 'dfirrigation']
 export default {
   computed:{
     ...mapGetters(['control','getControlName']),
@@ -64,7 +80,7 @@ export default {
   },
   watch:{
     select:function(data){
-   
+      console.log(data);
      this.$router.replace({
        name: controlName[data]
      })

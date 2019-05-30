@@ -1,4 +1,4 @@
-# sg-ui
+# plantlab-web-iot
 
 > A Vue.js project
 

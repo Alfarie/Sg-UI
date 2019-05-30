@@ -1,91 +1,87 @@
-import axios from '../../axios/axios';
-import {router} from '../../router/router'
+import Vue from 'vue'
+import { router } from '../../router/router'
+import axios from '../../axios/axios'
+import * as jwtAuth from '../../axios/jwtAuth'
+import moment from 'moment';
+
+var counterFlag = false;
+
 const state = {
-  tokenId: null,
-  username: null,
-  authMessage: null
-}
-
-const mutations = {
-  authUser(state, authData) {
-    state.tokenId = authData.tokenId;
-    state.username = authData.username;
-  },
-  authMessage: (state, message) => {
-    state.authMessage = message;
-  },
-  clearAuthData(state) {
-    state.tokenId = null;
-    state.username = null;
-  }
-}
-
-
-const actions = {
-  tryAutoLogin({commit}) {
-    const tokenId = localStorage.getItem('token');
-    if (!tokenId) {
-      return;
-    }
-    const expirationDate = localStorage.getItem('expiresDate');
-    const now = new Date();
-    if (now >= expirationDate) {
-      return;
-    }
-    const username = localStorage.getItem('username');
-    commit('authUser', {
-      tokenId: tokenId,
-      username: username
-    })
-  },
-  setLogoutTime({dispatch}, expirationTime) {
-    setTimeout(() => {
-      dispatch('logout')
-    }, expirationTime * 1000)
-  },
-  login: ({commit,dispatch}, authData) => {
-    axios.post('/auth/signin', authData)
-      .then(res => {
-        if (res.data.success) {
-          commit('authUser', res.data);
-          const now = new Date();
-          const expirationDate = new Date(now.getTime() + res.data.expiresIn * 1000);
-          console.log(authData);
-          if(authData.stayIn){
-            localStorage.setItem('token', res.data.tokenId);
-            localStorage.setItem('expiresDate', expirationDate)
-            localStorage.setItem('username', res.data.username);
-            dispatch('setLogoutTime', res.data.expiresIn);
-          }
-          router.replace({name: 'summary'})
-          commit('authMessage',null);
-        }else{
-          commit('authMessage', res.data.message);
-        }
-      })
-      .catch(err => console.log(err))
-  },
-  logout({commit}) {
-    commit('clearAuthData');
-    localStorage.removeItem('expiresDate');
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    router.replace('/')
-  }
+    isAuth: false,
+    cognitoUser: null,
+    authData: { tokenId: '' }
 }
 
 const getters = {
-  authMessage: (state) => {
-    return state.authMessage
-  },
-  isAuth: (state) => {
-    return (state.tokenId !== null) ? true : false;
-  }
+    cognitoUser(state) {
+        return state.cognitoUser;
+    },
+    authData(state) {
+        return state.authData;
+    }
+}
+
+const actions = {
+    LOGIN_USER: ({ dispatch, commit, state }, authData) => {
+        axios.post('/auth/signin', authData).then(res => {
+            var data = res.data;
+            localStorage.setItem('login', moment().format('YYYY-MM-DD HH:mm:ss'));
+            localStorage.setItem('expiresIn', data.expiresIn);
+            localStorage.setItem('tokenId', data.tokenId);
+            localStorage.setItem('username', data.username);
+            state.authData = data;
+            authenticationSuccess(dispatch);
+        })
+            .catch(err => {
+                alert('authetication fail')
+            })
+    },
+    LOGOUT_USER: ({ dispatch }) => {
+        localStorage.clear();
+        logoutSuccess(dispatch);
+    },
+    IS_AUTH: ({ dispatch, state }) => {
+        isAuth(dispatch, state);
+    }
+}
+// check is already logged in
+// route to dashboard
+
+const isAuth = async (dispatch, state) => {
+    let isLoggedIn = jwtAuth.authUser();
+    if (isLoggedIn){ 
+        authenticationSuccess(dispatch);
+        var data = {
+            login: localStorage.getItem('login'),
+            expiresIn: localStorage.getItem('expiresIn'),
+            tokenId: localStorage.getItem('tokenId'),
+            username: localStorage.getItem('username')
+        }
+        state.authData = data;
+    }
+}
+
+// Init iot, route to dashboard
+const authenticationSuccess = (dispatch) => {
+    router.push('/summary');
+
+    dispatch('SCONNECT')
+    if (!counterFlag) {
+        console.log('expiresIn: ', jwtAuth.expiresIn());
+        counterFlag = setTimeout(() => {
+            dispatch('LOGOUT_USER');
+            counterFlag = false;
+        }, jwtAuth.expiresIn() * 1000);
+    }
+}
+
+const logoutSuccess = (dispatch) => {
+    dispatch('SDISCONNECT')
+    location.reload();
 }
 
 export default {
-  state,
-  mutations,
-  actions,
-  getters
+    state,
+    getters,
+    actions
 }

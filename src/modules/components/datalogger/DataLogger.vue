@@ -1,11 +1,8 @@
 <template>
   <div class="containter">
-      <h1>Data Logger</h1>
-        <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <article class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
           <app-select-panel></app-select-panel>
-          <div  v-if="loggerFetchingStatus != 'no-record' ">
-             <graph-panel  ></graph-panel>
-          </div>
+          <router-view></router-view>
         </article>
     </div>
 </template>

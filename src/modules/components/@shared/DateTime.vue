@@ -1,14 +1,14 @@
 <template>
     <div class="container-fluid" style="margin-top: 10px;">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 text-center">
             <ul id="sp" class="">
                 <li class="sp-info">
-                    <h5> Date <span class="txt-color-purple"><i class="fa fa-calendar"></i> {{getSensors.date}}</span></h5>
+                    <h5> <span v-lang.Date></span> <span class="txt-color-purple"><i class="fa fa-calendar"></i> {{getDateTime.date}}</span></h5>
                     <div class="txt-color-purple hidden-mobile hidden-md hidden-sm">
                     </div>
                 </li>
                 <li class="sp-info">
-                    <h5 >Time <span class="txt-color-blue"><i class="fa fa-clock-o"></i> {{getSensors.time}}</span></h5>
+                    <h5 > <span v-lang.Time></span> <span class="txt-color-blue"><i class="fa fa-clock-o"></i> {{getDateTime.time}}</span></h5>
                     <div class="hidden-mobile hidden-md hidden-sm">
                     </div>
                 </li>
@@ -21,7 +21,7 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["getSensors"])
+    ...mapGetters(["getDateTime"])
   }
 };
 </script>

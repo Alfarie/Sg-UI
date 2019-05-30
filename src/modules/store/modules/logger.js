@@ -6,9 +6,14 @@ const state = {
     sparklineLogger: [],
     selectedSensor: 'soil',
     loggerFetchingStatus: 'no-record', // no-record, fetching, fetched
-    currentDate: ''
+    currentDate: '',
+    parAccLog: [],
+    parStatistic: {}
 }
 const getters = {
+    parAccLog: (state)=>{
+        return state.parAccLog;
+    },
     shortLogger: function(state){
         return state.shortLogger;
     },
@@ -79,9 +84,37 @@ const actions = {
         })
 
     },
-    updateSparklineLogger: function({commit}, payload){
-        axios.get('logger/finds/sparks')
-        .then(res=>commit('updateSparklineLogger', res.data))
+    getParAccLogger: ({state,getters}, payload) => {
+        axios.get('logger/gets/date/paracc', { 
+            headers:{ 'x-access-token': getters.authData.tokenId},
+            params: {
+                date: 'DATE'+ getters.getDate
+            }
+        }
+        ).then( res => {
+            console.log(res.data);
+            state.parAccLog = res.data;
+            
+        })
+        .catch( err =>{
+            console.log(err);
+        })
+    },
+    getLoggerInterval: ({commit,getters}) => {
+        axios.get('logger/gets/date/intervals', { 
+            headers:{ 'x-access-token': getters.authData.tokenId},
+            params: {
+                date: 'DATE'+ getters.getDate,
+                minute: 1
+            }
+        }
+        ).then( res => {
+            console.log(res.data);
+            
+        })
+        .catch( err =>{
+            console.log(err);
+        })
     }
 }
 

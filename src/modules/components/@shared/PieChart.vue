@@ -7,6 +7,7 @@
 <script>
   var $ = (window.jquery = require('jquery'));
   require("../../../assets/js/jquery.easypiechart.min.js");
+  
   export default {
     props:['chartprop', "value"],
     computed:{
@@ -23,10 +24,11 @@
         }
     },
     mounted () {
-        $('#'+ this.chartprop.id).easyPieChart(
-            this.chartprop.data
-        )
-        $('#'+ this.chartprop.id).data('easyPieChart').update(this.getPercent);
+        console.log(this.chartprop.id, $('#'+ this.chartprop.id).easyPieChart());
+        // $('#'+ this.chartprop.id).easyPieChart(
+        //     this.chartprop.data
+        // )
+        // $('#'+ this.chartprop.id).data('easyPieChart').update(this.getPercent);
     }
   };
 

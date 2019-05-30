@@ -7,13 +7,15 @@
 
 <script>
 import { mapGetters } from "vuex";
-export default {
+
+let newVar = {
   computed: {
     ...mapGetters(["getSensors"])
   },
-  beforeCreate () {
+  beforeCreate: function () {
     this.$store.dispatch('updateShortLogger');
     this.$store.dispatch('updateSparklineLogger');
   }
 };
+export default newVar;
 </script>

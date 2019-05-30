@@ -9,7 +9,7 @@
         </a>
       </div>
       <h2>
-        <strong>Logger</strong>
+        <strong> Data Logger</strong>
         <i>panel</i>
       </h2>
 
@@ -22,36 +22,49 @@
         <form class="smart-form">
           <fieldset>
             <div class="row">
-
               <section>
-                <label>Choose Date</label>
-                <input type="date" name="" id="" class="form-control" v-model="date">
+                <label>Choose start-date</label>
+                <input type="date" name="" id="" class="form-control" v-model="startDate">
               </section>
-
               <section>
-                <label>Choose Sensor</label>
+                <label>Choose end-date</label>
+                <input type="date" name="" id="" class="form-control" v-model="endDate">
+              </section>
+              <section>
+                <label>Choose Interval</label>
                   <label class="select" style="margin-bottom: 20px;">
-                      <select class="input-lg" @input="selectSensor">
-                        <option value="soil">Soil</option>
-                        <option value="vpd">VPD</option>
-                        <option value="par">PAR</option>
-                        <option value="light">LED (lux)</option>
-                        <option value="paracc">PAR Accumulation</option>
-                        <option value="temperature">Temperature</option>
-                        <option value="humidity">Relative Humidity</option>
-                        <option value="co2">Carbon dioxide</option>
+                      <select class="input-lg" v-model.number="interval">
+                        <option v-if="diffDate < 10" value="1">1 minute</option>
+                        <option v-if="diffDate < 20" value="3">3 minutes</option>
+                        <option v-if="diffDate < 30" value="5">5 minutes</option>
+                        <option v-if="diffDate < 30" value="10">10 minutes</option>
+                        <option v-if="diffDate < 30" value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
                       </select>
                       <i></i>
                     </label>
               </section>
+
+              <!-- <section>
+                <label>Choose Sensor</label>
+                  <label class="select" style="margin-bottom: 20px;">
+                      <select class="input-lg" @input="selectSensor">
+                        <option value="soil">Soil Moisture</option>
+                        <option value="vpd">VPD</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="humidity">Relative Humidity</option>
+                        <option value="co2">CO<sub>2</sub></option>
+                        <option value="par">PAR</option>
+                        <option value="paracc">PAR Accumulation</option>
+                      </select>
+                      <i></i>
+                    </label>
+              </section> -->
             </div>
           </fieldset>
           <footer>
             <button type="button" class="btn btn-primary" @click="fetchData">
               Fetch Data 
-            </button>
-            <button type="button" class="btn btn-default" onclick="window.history.back();">
-              Set default
             </button>
           </footer>
         </form>
@@ -61,29 +74,45 @@
 </template>
 
 <script>
-  import moment from 'moment'
-  var $ = (window.jQuery = require("jquery"));
-  require('../../../../assets/js/plugin/clockpicker/clockpicker.min.js');
-  export default {
-    data(){
-      return {
-        date: moment().format('YYYY-MM-DD')
-      }
-    },
-    methods:{
-      selectSensor: function(data){
-        console.log(data.target.value);
-        this.$store.commit('updateSelectedSensor', data.target.value);
-      },
-      fetchData: function(){
-        this.$store.commit('updateLoggerFetchingStatus', 'fetching');
-        this.$store.commit('updateAllDayLogger', []);
-        this.$store.commit('updateCurrentDate', this.date);
-        setTimeout( ()=>{
-          this.$store.dispatch('updateAllDayLogger', 'DATE'+this.date);
-        },2000)
+import moment from "moment";
+var $ = (window.jQuery = require("jquery"));
+require("../../../../assets/js/plugin/clockpicker/clockpicker.min.js");
+export default {
+  data() {
+    return {
+      startDate: moment().format("YYYY-MM-DD"),
+      endDate: moment().format("YYYY-MM-DD"),
+      select: "soil",
+      interval: 30
+    };
+  },
+  computed: {  
+    diffDate(){
+      var start = moment(this.startDate);
+      var end = moment(this.endDate)
+      return Math.abs(end.diff(start, 'days'))
+    }
+  },
+  watch: {
+    diffDate(value){
+      if(value > 5) {
+        this.interval = 30;
       }
     }
-  };
-
+  },
+  methods: {
+    
+    fetchData: function() {
+      this.$store.dispatch('popupFetching');
+      this.$router.push({ path: "/logger" });
+      setTimeout(() => {
+        this.$router.push({ path: "/logger/graph", query: {
+          interval: this.interval,
+          startDate: this.startDate,
+          endDate: this.endDate
+        } });
+      }, 1000);
+    }
+  }
+};
 </script>

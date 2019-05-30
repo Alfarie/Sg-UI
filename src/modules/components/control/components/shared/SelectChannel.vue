@@ -1,9 +1,6 @@
 <template>
-
-  <div class="jarviswidget jarviswidget-color-greenDark jarviswidget-sortable" id="wid-id-3" data-widget-colorbutton="false"
-    data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" role="widget">
-
-    <header role="heading" class="ui-sortable-handle">
+  <div class="jarviswidget jarviswidget-color-greenDark jarviswidget-sortable" >
+    <header class="ui-sortable-handle">
       <div class="jarviswidget-ctrls" role="menu">
         <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom"
           data-original-title="Fullscreen">
@@ -14,7 +11,6 @@
         <strong>Channel</strong>
         <i>panel {{ch}}</i>
       </h2>
-
       <span class="jarviswidget-loader">
         <i class="fa fa-refresh fa-spin"></i>
       </span>
@@ -31,7 +27,7 @@
             <label class="select">
               <select class="input-lg"  v-model="select">
                 <option value="-1" key="c0">Choose Channel</option>
-                <option v-for="(c,ind) in getControlName" :key="c + ind" :value="ind+1">Channel {{ind+1}}: {{c}}</option>
+                <option v-for="(c,ind) in control" :key="controlName[c.mode] + ind" :value="ind+1">Channel {{ind+1}}: {{controlName[c.mode]}}</option>
               </select>
               <i></i>
             </label>
@@ -46,35 +42,34 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["getControlName"]),
-    ch: function(){
+    ...mapGetters(["getControlName", "control"]),
+    ch: function() {
       return this.$route.params.ch;
     }
   },
   data() {
     return {
-      select: -1
+      select: -1,
+      controlName: ['Manual', 'Timer', 'Setpoint', 'Setbound', 'Hybrid', 'Irrigation', 'Advance Setpoint', 'Advance Setbound', 'Advance Setbount & Timing', 'AI Irrigation']
     };
   },
-
   watch: {
-    ch: function(data){
-      if(!data){
+    ch: function(data) {
+      if (!data) {
         this.select = -1;
       }
     },
     select: function(data) {
       if (data != -1) {
         this.$router.replace({
-          name: this.getControlName[data-1],
+          name: this.getControlName[data - 1],
           params: {
             ch: data
           }
         });
-      }
-      else{
+      } else {
         this.$router.replace({
-          name: 'grobot-control',
+          name: "grobot-control"
         });
       }
     }
@@ -83,5 +78,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

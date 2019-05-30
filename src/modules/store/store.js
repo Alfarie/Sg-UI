@@ -1,25 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+Vue.use(Vuex);
 
-import sensors from './modules/sensors'
-import datetime from './modules/datetime'
+import auth from './modules/auth'
 import socket from './modules/socket'
+import iot from './modules/iot'
+import ui from './modules/ui-status'
 import control from './modules/control'
 import logger from './modules/logger'
-import status from './modules/mcu-status'
-import network from './modules/network'
-import auth from './modules/auth'
+import mcu from './modules/mcu-status'
+import setting from './modules/setting'
+import wifi from './modules/wifi'
+import deviceInfo from './modules/device-info'
 
-Vue.use(Vuex);
 export const store = new Vuex.Store({
     modules: {
-        sensors,
-        datetime,
-        socket,
+        auth,
+        iot,
+        ui,
         control,
+        socket,
+        mcu,
         logger,
-        status,
-        network,
-        auth
+        setting,
+        wifi,
+        deviceInfo
     }
 })

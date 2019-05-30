@@ -46,15 +46,16 @@
               <div class="alert alert-danger fade in" style="margin-top: 10px;" v-if="showAlert">
                 <button class="close" data-dismiss="alert"> × </button>
                 <i class="fa-fw fa fa-times"></i>
-                <strong>Error!</strong> Start time much before stop time!!.
+                <strong>Error!</strong> Start time must be before stop time!!.
               </div>
             </div>
           </fieldset>
         <fieldset>
           <header>Timer List </header>
+
           <div class="dd" id="nestable2">
             <ol class="dd-list">
-              <li class="dd-item" data-id="13" v-for="(time,index) in timerList" :key="time[0]+index">
+              <li class="dd-item"  data-id="13" v-for="(time,index) in timerList" :key="time[0]+index">
                 <div class="dd-handle text-center">
                   <span style="color:rgb(255, 127, 127); font-size: 18px;">{{time[0] | minToTime}}</span>
                   -
@@ -124,6 +125,7 @@
         this.timerList = this.control[this.ch-1].timer.list;
       },
       submit: function(){
+        this.$store.dispatch('popupUpdateModal');
         this.control[this.ch-1].mode = 1;
         this.$store.dispatch('uploadControl', this.ch);
       }

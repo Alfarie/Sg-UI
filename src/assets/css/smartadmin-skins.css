@@ -4100,11 +4100,12 @@ body.smart-style-6 #activity b.badge {
 }
 
 body.smart-style-6 #logo-group>span#logo:before {
-  content: "GROBOT-G";
-  font-size: 17px;
+  content: " GROBOT-X";
+  font-size: 20px;
   color: #fff;
-  font-weight: 300;
+  font-weight: 500;
   margin-top: 1px;
+  margin-left: 10px;
   display: block
 }
 

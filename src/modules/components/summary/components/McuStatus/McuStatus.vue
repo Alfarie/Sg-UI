@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
-    <div class="jarviswidget jarviswidget-color-greenDark jarviswidget-sortable" id="wid-id-3" data-widget-colorbutton="false"
-      data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" role="widget">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+        <div class="jarviswidget jarviswidget-color-greenDark jarviswidget-sortable" id="wid-id-3">
 
       <header role="heading" class="ui-sortable-handle">
         <div class="jarviswidget-ctrls" role="menu">
@@ -34,8 +35,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(value,ind) in gpio" :key="value + ' ' + ind">
-                      <td style="padding: 5px; font-size: 20px;"> {{ind+1}} </td>
+                    <tr v-for="(value,ind) in getGpio" :key="value + ' ' + ind">
+                      <td style="padding: 5px; font-size: 16px;"> Channel: {{ind + 1}} </td>
                       <td style="padding: 5px;">
                         <button-status :value="value"></button-status>
                       </td>
@@ -44,67 +45,34 @@
                 </table>
               </div>
             </fieldset>
-            <header>
-              Par Accumulation
+            <!-- <header>
+              Water Status
             </header>
             <fieldset>
               <div class="table-responsive">
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th style="padding: 10px;">CHANNEL</th>
-                      <th style="padding: 10px;">PAR kJ/m<sup>2</sup></th>
-                      <th style="padding: 10px;">PROGRESS</th>
-                      <th style="padding: 10px;">MODE</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(value,ind) in paracc" :key="value + ' ' + ind" v-show="value.isuse == 1">
-                      <td style="padding: 5px; font-size: 15px;"> {{ind+1}} </td>
-                      <td style="padding: 5px;">
-                        {{kj(value.acc)}} / {{kj(value.max)}} 
-                      </td>
-                      <td style="padding: 5px;">
-                        <span class="txt-color-purple">
-                          {{ (value.acc / value.max * 100).toFixed(2)}} %
-                        </span>
-                      </td>
-                      <td style="padding: 5px;">
-                        {{mode[value.mode]}}
-                      </td>
-
-
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </fieldset>
-
-            <header>
-              Memory
-            </header>
-            <fieldset>
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th style="padding: 10px;">Module Name</th>
-                      <th style="padding: 10px;">Memory</th>
+                      <th style="padding: 10px;">Status</th>
+                      <th style="padding: 10px;">Current Time</th>
+                      <th style="padding: 10px;"></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td style="padding: 5px; font-size: 20px;">MCU</td>
-                      <td style="padding: 5px; font-size: 20px; color: green;">{{memory}} Byte</td>
+                      <td style="padding: 5px; font-size: 16px;">{{GetWater.type.toUpperCase()}}</td>
+                      <td style="padding: 5px; font-size: 16px;">{{GetWater.data.crt}}</td>
+                      <td style="padding: 5px; font-size: 16px;">{{GetWater.data.max}}</td>
                     </tr>
                     <tr>
-                      <td style="padding: 5px; font-size: 20px; ">MPU</td>
-                      <td style="padding: 5px; font-size: 20px; color: green;">112 MB</td>
+                      <td style="padding: 5px; font-size: 16px;">Floating Sensors</td>
+                      <td style="padding: 5px; font-size: 16px;">{{getSensors.floating}}</td>
+                      <td style="padding: 5px; font-size: 16px;"></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-            </fieldset>
+            </fieldset> -->
 
             <footer>
               <button type="button" class="btn btn-default">
@@ -113,6 +81,8 @@
             </footer>
           </form>
         </div>
+      </div>
+    </div>
       </div>
     </div>
   </div>
@@ -130,27 +100,13 @@
       ButtonStatus,
       ParProgress
     },
-    data() {
+    data(){
       return {
-        mode: ['SOIL', 'PAR', 'PAR & SOIL']
-      };
-    },
-    methods: {
-      kj: function(value){
-        return (value / 1000).toFixed(2);
+        chName: ['LED', 'CO2 valve', 'EC Pump', 'pH Pump', 'Water Pump', 'Water Valve']
       }
     },
-    computed: {
-      ...mapGetters(["GetStatus"]),
-      gpio: function () {
-        return this.GetStatus.gpio;
-      },
-      memory: function () {
-        return this.GetStatus.memory;
-      },
-      paracc: function () {
-        return this.GetStatus.paracc;
-      }
+    computed:{
+      ...mapGetters(['getGpio','getSensors', 'GET_GPIO']),
     }
   };
 

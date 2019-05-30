@@ -19,25 +19,76 @@
       </div>
       <div class="widget-body">
         <form class="smart-form">
-          <label class="select" style="margin-bottom: 20px;">
-            <select class="input-lg"  v-model="control[ch-1].irrigation.mode">
-              <option value="0">Soil</option>
-              <option value="1">PAR</option>
-              <!-- <option value="2">Soil & par</option> -->
-            </select>
-          </label>
-          
-          <section>
-              <label class="label">Working time</label>
-              <label class="input">
-                <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.working">
-              </label>
-            </section>
-        <!-- <h1>{{control[ch-1].irrigation}}</h1> -->
-          <header>Soil</header>
-          <app-range :sliderobj="soilobj" id="soil" v-model="soil" style="margin-bottom: 20px;"></app-range>
-          <header>Par</header>
-          <app-range :sliderobj="parobj" id="irrigation" v-model="par" style="margin-bottom: 20px;"></app-range>
+
+          <fieldset>
+            <label class="select label" style="margin-bottom: 20px;"> Sensors
+              <select class="input-lg" style="background-color: rgb(157, 229, 126);" v-model.number="control[ch-1].irrigation.mode">
+                <option value="0">PAR</option>
+                <option value="1">PAR & Soil</option>
+                <option value="2">PAR AI</option>
+              </select>
+            </label>
+          </fieldset>
+
+          <div  v-show="control[ch-1].irrigation.mode == 1">
+            <header>Soil moisture</header>
+            <fieldset>
+              <section>
+                <label class="label">Soil moisture detecting</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.soil_detecting">
+                </label>
+              </section>
+              <section>
+                <label class="label">Soil moisture working</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.soil_working">
+                </label>
+              </section>
+              <label class="label">Soil moisture setpoint</label>
+              <app-range :sliderobj="soilobj" id="soil" v-model="soil" style="margin-bottom: 20px;"></app-range>
+            </fieldset>
+          </div>
+          <div>
+            <header>PAR</header>
+            <fieldset>
+              <section  v-show="control[ch-1].irrigation.mode == 1">
+                <label class="label">Soil Setpoint</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.par_soil_setpoint">
+                </label>
+              </section>
+              <section  v-show="control[ch-1].irrigation.mode == 1">
+                <label class="label">PAR detecting</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.par_detecting">
+                </label>
+              </section>
+              <section v-show="control[ch-1].irrigation.mode == 2">
+                <label class="label">Descent rate</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.descent_rate">
+                </label>
+              </section>
+              <section v-show="control[ch-1].irrigation.mode == 2">
+                <label class="label">Limit time</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.limit_time">
+                </label>
+              </section>
+              <section>
+                <label class="label">PAR working</label>
+                <label class="input">
+                  <input type="number" class="input-md" v-model.number="control[ch-1].irrigation.par_working">
+                </label>
+              </section>
+              <section>
+                <label class="label">PAR setpoint</label>
+              <app-range :sliderobj="parobj" id="irrigation" v-model="par" style="margin-bottom: 20px;"></app-range>
+              </section>
+              
+            </fieldset>
+          </div>
           <footer>
             <button type="button" @click="submit" class="btn btn-primary">
               Submit
@@ -56,7 +107,7 @@
   import Range from "./shared/Range.vue";
   import DoubleRangeData from "./models/DoubleRange.js";
   import RangeData from "./models/Range.js";
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     data() {
       return {
@@ -66,16 +117,17 @@
         par: ''
       };
     },
-    methods:{
-      submit: function(){
-        this.control[this.ch - 1].mode = 4;
+    methods: {
+      submit: function () {
+        this.$store.dispatch('popupUpdateModal');
+        this.control[this.ch - 1].mode = 5;
         this.$store.dispatch('uploadControl', this.ch);
       },
-      update: function(){
-        this.soilobj.from = this.control[this.ch-1].irrigation.soil_lower;
-        this.soilobj.to = this.control[this.ch-1].irrigation.soil_upper;
+      update: function () {
+        this.soilobj.from = this.control[this.ch - 1].irrigation.soil_lower;
+        this.soilobj.to = this.control[this.ch - 1].irrigation.soil_upper;
         // this.soilobj.to = 88;
-        this.parobj.from = this.control[this.ch-1].irrigation.par_accum;
+        this.parobj.from = this.control[this.ch - 1].irrigation.par_acc;
       }
     },
     components: {
@@ -83,24 +135,24 @@
     },
     computed: {
       ...mapGetters(['control']),
-      ch: function(){
+      ch: function () {
         return this.$route.params.ch;
       }
     },
     watch: {
-      soil: function(){
+      soil: function () {
         let arr = this.soil.split(';');
-        this.control[this.ch-1].irrigation.soil_lower = parseInt(arr[0]);
-        this.control[this.ch-1].irrigation.soil_upper = parseInt(arr[1]);
+        this.control[this.ch - 1].irrigation.soil_lower = parseInt(arr[0]);
+        this.control[this.ch - 1].irrigation.soil_upper = parseInt(arr[1]);
       },
-      par: function(){
-        this.control[this.ch-1].irrigation.par_accum = this.par;
+      par: function () {
+        this.control[this.ch - 1].irrigation.par_acc = this.par;
       },
-      ch: function(data){
+      ch: function (data) {
         this.update();
       }
     },
-    beforeMount () {
+    beforeMount() {
       this.update();
     }
   };

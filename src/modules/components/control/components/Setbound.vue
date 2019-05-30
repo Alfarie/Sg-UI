@@ -1,6 +1,5 @@
 <template>
-  <div class="jarviswidget jarviswidget-color-greenDark jarviswidget-sortable" id="wid-id-3" data-widget-colorbutton="false"
-    data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" role="widget">
+  <div class="jarviswidget jarviswidget-color-greenDark jarviswidget-sortable" id="wid-id-3" >
 
     <header role="heading" class="ui-sortable-handle">
       <div class="jarviswidget-ctrls" role="menu">
@@ -36,7 +35,7 @@
           </label>
   <!-- <h1>{{control[ch-1].setbound}}</h1> -->
           <app-range :sliderobj="obj" id="setbound" v-model="value" style="margin-bottom: 20px;"></app-range>
-
+          <!-- {{control[this.ch - 1].setbound}} -->
 
           <footer>
             <button @click="submit" type="button" class="btn btn-primary">
@@ -66,13 +65,15 @@ export default {
   },
   methods: {
     submit: function() {
+      this.$store.dispatch('popupUpdateModal');
       this.control[this.ch - 1].mode = 3;
       this.$store.dispatch("uploadControl", this.ch);
+      this.control[this.ch - 1].sensor = this.select;
     },
     update: function() {
       this.select = this.control[this.ch - 1].sensor;
       var sensor = this.getSensorName[this.select];
-      let objData = RangeData[sensor];
+      var objData = RangeData[sensor];
       objData.from = this.control[this.ch - 1].setbound.lower;
       objData.to = this.control[this.ch - 1].setbound.upper;
       this.obj = objData;
@@ -89,19 +90,18 @@ export default {
   },
   watch: {
     value: function() {
-      let arr = this.value.split(";");
-      this.control[this.ch - 1].setbound.start = arr[0];
-      this.control[this.ch - 1].setbound.stop = arr[1];
+      var arr = this.value.split(";");
+      this.control[this.ch - 1].setbound.lower = parseInt(arr[0]);
+      this.control[this.ch - 1].setbound.upper = parseInt(arr[1]);
     },
     ch: function() {
       this.update();
     },
     select: function(data) {
-      console.log(data);
       var sensor = this.getSensorName[data];
-      let objData = RangeData[sensor];
-      objData.from = this.control[this.ch - 1].setbound.start;
-      objData.to = this.control[this.ch - 1].setbound.stop;
+      var objData = RangeData[sensor];
+      // objData.from = this.control[this.ch - 1].setbound.start;
+      // objData.to = this.control[this.ch - 1].setbound.stop;
       this.obj = objData;
     }
   },

@@ -1,27 +1,24 @@
-import Vue from 'vue';
+
+import axios from '../../axios/axios';
 const state = {
-  paracc: 0
+
 }
 
 const getters = {
-  getParacc: function(state) {
-    return state.paracc;
-  }
+
 }
 
 const mutations = {
-    updateParacc: function(state, payload){
-        state.paracc = payload;
-    }
+
 }
 
 const actions = {
-    updateParacc: function({commit}, payload){
-       
-    },
-    uploadParacc: function({commit}, payload){
-
-    }
+  updateDateTime({dispatch,getters}, payload) {
+    dispatch('popupUpdateModal');
+    axios.post('setting/datetime', payload,{ headers: { 'x-access-token': getters.authData.tokenId } })
+    .then(res=>console.log(res.data))
+      
+  }
 }
 
 export default {

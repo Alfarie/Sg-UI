@@ -64,6 +64,7 @@ export default {
       this.select = this.control[this.ch-1].manual.status == 0? false: true;
     },
     submit: function(){
+      this.$store.dispatch('popupUpdateModal');
       this.control[this.ch - 1].mode = 0;
       this.$store.dispatch('uploadControl', this.ch);
     }

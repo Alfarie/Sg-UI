@@ -1,29 +1,70 @@
-import {router} from '../../router/router.js'
+import Vue from 'vue';
+import socketio from 'socket.io-client';
+import VueSocketio from 'vue-socket.io';
+import { store } from '../store'
+import { router } from '../../router/router'
+
+let baseURL = ''
+switch (process.env.NODE_ENV) {
+  case 'development':
+    baseURL = 'http://'+ window.location.hostname +':3000'
+    break
+  default:
+    baseURL = window.location.origin
+}
+
+console.log(baseURL)
+
 const state = {
     connect: false
 }
 
 const getters = {
-    ConnectionStatus: (state)=>{
+    ConnectionStatus: (state) => {
         return state.connect;
+    },
+    connect: (state) => {
+        return state.connect;
+    },
+    isConnect: (state) => {
+        return (state.connect) ? 'System Connect' : 'System Offline';
     }
 }
 
 const mutations = {
-    SOCKET_CONNECT: (state,  status ) => {
+    SOCKET_CONNECT: (state, status) => {
         console.log('SOCKET.IO: Connected');
         state.connect = true;
-        // router.push({name: 'summary'});
     },
-    SOCKET_DISCONNECT: (state, status)=>{
+    SOCKET_DISCONNECT: (state, status) => {
         console.log('SOCKET.IO: disconnceted');
         state.connect = false;
-        router.replace({name: 'connection-status'});
+        router.push('/disconnect')
+    },
+    SOCKET_ERROR: (state, err) => {
+        console.error(err);
     }
+}
+
+const actions = {
+    SCONNECT: ({getters}) => {
+        if(getters.connect) {
+            return;
+        }
+        var querryString = 'auth_token=' + localStorage.getItem('tokenId');
+        console.log('SOCKET.io: trying to connect to server ');
+        // var hostname = "192.168.1.27";
+        Vue.use(VueSocketio, socketio(baseURL, {query: querryString }), store);
+    },
+    SDISCONNECT: ()=>{
+        Vue.prototype.$socket.disconnect();
+    }
+
 }
 
 export default {
     state,
     getters,
-    mutations
+    mutations,
+    actions
 }
