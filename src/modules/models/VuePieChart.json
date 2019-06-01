@@ -1,0 +1,42 @@
+{
+    "vpd": {
+        "max": 5000,
+        "post": "Pa"
+    },
+    "soil": {
+        "max": 100,
+        "post": "%"
+    },
+    "par": {
+        "max": 3000,
+        "post": "W/sqm"
+    },
+    "humidity": {
+        "max": 100,
+        "post": "%"
+    },
+    "temperature": {
+        "max": 50,
+        "post": "C"
+    },
+    "co2": {
+        "max": 8000,
+        "post": "ppm"
+    },
+    "light": {
+        "max": 25000,
+        "post": "Lux"
+    },
+    "ec": {
+        "max": 4,
+        "post": ""
+    },
+    "ph": {
+        "max": 14,
+        "post": ""
+    },
+    "water": {
+        "max": 80,
+        "post": "C"
+    }
+}

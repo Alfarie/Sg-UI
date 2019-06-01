@@ -22,8 +22,8 @@ export default {
     }
   },
   methods:{
-    getValue: function(data){
-      console.log(data);
+    getValue: function(rangeValue){
+      console.log('[Info] rangeValue:', rangeValue);
     }
   },
   mounted() {

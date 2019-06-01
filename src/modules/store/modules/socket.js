@@ -4,16 +4,7 @@ import VueSocketio from 'vue-socket.io';
 import { store } from '../store'
 import { router } from '../../router/router'
 
-let baseURL = ''
-switch (process.env.NODE_ENV) {
-  case 'development':
-    baseURL = 'http://'+ window.location.hostname +':3000'
-    break
-  default:
-    baseURL = window.location.origin
-}
-
-console.log(baseURL)
+import {baseURL} from '../../axios/axios'
 
 const state = {
     connect: false
