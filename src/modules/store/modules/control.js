@@ -35,11 +35,12 @@ const actions = {
     axios.get('control/', {
       headers: {'x-access-token': getters.authData.tokenId}
     }).then(res => {
-      // console.log(res.data);
+       console.log(res.data);
       commit('updateControl', res.data)
     }).catch(err => console.log(err))
   },
   uploadControl: ({getters, state}, payload) => {
+    console.log(payload, state.control[payload - 1], 'upload control')
     axios.post('control/', {control: state.control[payload - 1]},
       {headers: {'x-access-token': getters.authData.tokenId}})
       .then(res => console.log(res))

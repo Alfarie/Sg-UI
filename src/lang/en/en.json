@@ -1,0 +1,18 @@
+{
+    "Home": "HOME",
+    "control": "Control",
+    "Setting": "Setting",
+    "DataLogger": "Data Logger",
+    "Date": "DATE",
+    "Time": "TIME",
+    "Live": "Live",
+    "VPD": "VPD",
+    "FullVPD": "Vapor Pressure Deficit",
+    "Soil": "Soil",
+    "FullSoil": "Soil Moisture",
+    "Humidity": "Humidity",
+    "Temperature": "Temperature",
+    "Par": "PAR",
+    "ParAcc": "Par Accumulation",
+    "RealTimeGraph": "Real-Time Graph"
+}

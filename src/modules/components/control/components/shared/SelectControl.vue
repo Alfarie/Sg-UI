@@ -37,7 +37,7 @@
                 <label class="toggle">
                   <input type="radio" name="radio-toggle" value="4" v-model="select">
                   <i data-swchon-text="ON" data-swchoff-text="OFF"></i>Setbound & Timing</label> -->
-               
+
                 <!-- <label class="toggle">
                   <input type="radio" name="radio-toggle" value="9" v-model="select">
                   <i data-swchon-text="ON" data-swchoff-text="OFF"></i>AI Irrigation</label> -->
@@ -80,7 +80,6 @@ export default {
   },
   watch:{
     select:function(data){
-      console.log(data);
      this.$router.replace({
        name: controlName[data]
      })

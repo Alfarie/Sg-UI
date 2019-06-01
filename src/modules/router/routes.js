@@ -57,9 +57,9 @@ const DFIrrigation = resolve => {
   }, 'grobot-control')
 }
 
-const AdvanceCondition = resolve => {
-  require.ensure(['../components/control/components/AdvanceCondition.vue'], () => {
-    resolve(require('../components/control/components/AdvanceCondition.vue'))
+const Setpoint = resolve => {
+  require.ensure(['../components/control/components/Setpoint.vue'], () => {
+    resolve(require('../components/control/components/Setpoint.vue'))
   }, 'grobot-control')
 }
 const AdvanceSetbound = resolve => {
@@ -231,7 +231,7 @@ export const routes = [
           {path: ':ch/setbound', name: 'setbound', component: Setbound},
           {path: ':ch/hybrid', name: 'hybrid', component: Hybrid},
           {path: ':ch/irrigation', name: 'irrigation', component: Irrigation},
-          {path: ':ch/setpoint', name: 'advancecondition', component: AdvanceCondition},
+          {path: ':ch/setpoint', name: 'advancecondition', component: Setpoint},
           {path: ':ch/advsb', name: 'advancesetbound', component: AdvanceSetbound},
           {path: ':ch/advsbt', name: 'advancetimingsetbound', component: AdvanceTimingSetbound},
           {path: ':ch/dfirrigation', name: 'dfirrigation', component: DFIrrigation},

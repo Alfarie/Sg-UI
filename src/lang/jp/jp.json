@@ -1,0 +1,19 @@
+{
+    "Home": "HOME",
+    "control": "制御",
+    "Setting": "設定",
+    "DataLogger": "過去データ",
+    "Date": "日付",
+    "Time": "時刻",
+    "Live": "Live",
+    "VPD": "飽差(VPD)",
+    "FullVPD": "飽差(VPD)",
+    "Soil": "土壌水分",
+    "FullSoil": "土壌水分",
+    "Humidity": "湿度",
+    "Temperature": "温度",
+    "Par": "日射比例",
+    "ParAcc": "積算日射",
+    "RealTimeGraph": "リアルタイムグラフ"
+    
+}
