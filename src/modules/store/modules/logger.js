@@ -57,14 +57,13 @@ const mutations = {
 
 
 const actions = {
-    updateShortLogger: function({commit}, payload){
-        axios.get('logger/finds/short')
+    updateShortLogger: async ({commit}, payload) => {
+        await axios.get('logger/finds/short')
         .then(
             (res)=>{
                 commit('updateShortLogger', res.data);
             }
         )
-        .catch(err=>{console.log(err);})
     },
     updateAllDayLogger: function({commit}, payload){
         axios.get('logger/finds/date', {
@@ -84,36 +83,25 @@ const actions = {
         })
 
     },
-    getParAccLogger: ({state,getters}, payload) => {
-        axios.get('logger/gets/date/paracc', { 
+    getParAccLogger: async ({state,getters}) => {
+        await axios.get('logger/gets/date/paracc', {
             headers:{ 'x-access-token': getters.authData.tokenId},
             params: {
                 date: 'DATE'+ getters.getDate
             }
         }
         ).then( res => {
-            console.log(res.data);
             state.parAccLog = res.data;
-            
-        })
-        .catch( err =>{
-            console.log(err);
+
         })
     },
-    getLoggerInterval: ({commit,getters}) => {
-        axios.get('logger/gets/date/intervals', { 
+    getLoggerInterval: async ({commit,getters}) => {
+        await axios.get('logger/gets/date/intervals', {
             headers:{ 'x-access-token': getters.authData.tokenId},
             params: {
                 date: 'DATE'+ getters.getDate,
                 minute: 1
             }
-        }
-        ).then( res => {
-            console.log(res.data);
-            
-        })
-        .catch( err =>{
-            console.log(err);
         })
     }
 }

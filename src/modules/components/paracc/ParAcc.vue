@@ -164,7 +164,6 @@ export default {
         )
         .then(res => {
           const parstat = res.data.par;
-          console.log(parstat);
           this.parStat = {
             max: parstat[0],
             avg: parstat[1],

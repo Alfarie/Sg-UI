@@ -31,20 +31,14 @@ const mutations = {
 }
 
 const actions = {
-  updateControl: ({commit, getters}, payload) => {
-    axios.get('control/', {
+  updateControl: async ({commit, getters}, payload) => {
+    await axios.get('control/', {
       headers: {'x-access-token': getters.authData.tokenId}
-    }).then(res => {
-       console.log(res.data);
-      commit('updateControl', res.data)
-    }).catch(err => console.log(err))
+    }).then(res => commit('updateControl', res.data))
   },
-  uploadControl: ({getters, state}, payload) => {
-    console.log(payload, state.control[payload - 1], 'upload control')
-    axios.post('control/', {control: state.control[payload - 1]},
+  uploadControl: async ({getters, state}, payload) => {
+    await axios.post('control/', {control: state.control[payload - 1]},
       {headers: {'x-access-token': getters.authData.tokenId}})
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
   }
 }
 

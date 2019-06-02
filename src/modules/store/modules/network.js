@@ -18,13 +18,7 @@ const mutations = {
 
 const actions = {
     connectWifi: ({commit}, wifiAuth)=>{
-        axiosNetwork.post('connect', wifiAuth)
-        .then( res=>{
-            console.log(res);
-        })
-        .catch( err=>{
-            console.log(err);
-        })
+      axiosNetwork.post('connect', wifiAuth)
     },
     scanWifi: ({commit})=>{
         /*
@@ -42,7 +36,7 @@ const actions = {
         */
         axiosNetwork.get('scan')
         .then(res=> {
-            
+
             let wifilist = res.data.payload;
             let wifis = [];
             for(let key in wifilist ){
@@ -53,7 +47,6 @@ const actions = {
                 }
                 wifis.push(data);
             }
-            console.log(wifis);
             commit('wifisUpdate', wifis);
         })
         .catch(err=> console.log(err))

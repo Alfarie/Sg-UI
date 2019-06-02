@@ -49,7 +49,7 @@ const actions = {
 
 const isAuth = async (dispatch, state) => {
     let isLoggedIn = jwtAuth.authUser();
-    if (isLoggedIn){ 
+    if (isLoggedIn){
         authenticationSuccess(dispatch);
         var data = {
             login: localStorage.getItem('login'),
@@ -67,7 +67,6 @@ const authenticationSuccess = (dispatch) => {
 
     dispatch('SCONNECT')
     if (!counterFlag) {
-        console.log('expiresIn: ', jwtAuth.expiresIn());
         counterFlag = setTimeout(() => {
             dispatch('LOGOUT_USER');
             counterFlag = false;

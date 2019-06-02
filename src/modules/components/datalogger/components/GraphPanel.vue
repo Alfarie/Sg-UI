@@ -90,7 +90,6 @@ export default {
   },
   methods:{
     refresh(){
-      console.log(this.$route.query);
       this.showGraph = false;
       this.sensor = this.sensor;
       setTimeout(()=>{
@@ -138,8 +137,6 @@ export default {
         else{
           this.$router.push({path: '/logger'})
         }
-      }).catch(err=>{
-        console.log(err);
       })
     }
   }
