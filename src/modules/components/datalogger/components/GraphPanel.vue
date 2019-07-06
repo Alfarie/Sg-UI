@@ -62,8 +62,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import moment from "moment";
 import axios from '../../../axios/axios'
 
 import Graph from "./Graph.vue";
