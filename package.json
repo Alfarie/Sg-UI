@@ -19,7 +19,7 @@
     "crypto-js": "^3.1.9-1",
     "dateformat": "^3.0.3",
     "flexbox": "0.0.3",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "moment": "^2.21.0",
     "socket.io-client": "^2.0.4",
     "vue": "^2.5.11",
