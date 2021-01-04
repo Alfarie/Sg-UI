@@ -13,7 +13,7 @@
     "amazon-cognito-identity-js": "^2.0.13",
     "aws-iot-device-sdk": "^2.2.1",
     "aws-sdk": "^2.269.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-runtime": "^6.26.0",
     "chart.js": "^2.7.2",
     "crypto-js": "^3.1.9-1",
