@@ -15,7 +15,7 @@
     "aws-sdk": "^2.269.1",
     "axios": "^0.18.0",
     "babel-runtime": "^6.26.0",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "crypto-js": "^3.1.9-1",
     "dateformat": "^3.0.3",
     "flexbox": "0.0.3",
